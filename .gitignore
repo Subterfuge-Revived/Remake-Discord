@@ -1,0 +1,11 @@
+#NPM modules
+node_modules/
+
+#VS CODE FILES
+.vscode
+
+#MAC FILES
+.DS_Store
+
+#BOT TOKEN
+tokens.json
