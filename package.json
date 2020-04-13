@@ -1,0 +1,22 @@
+{
+  "name": "remake-discord",
+  "version": "1.0.0",
+  "description": "A Discord Bot to assist in managing the Subterfuge Remake community",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Subterfuge-Revived/Remake-Discord.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Subterfuge-Revived/Remake-Discord/issues"
+  },
+  "homepage": "https://github.com/Subterfuge-Revived/Remake-Discord#readme",
+  "dependencies": {
+    "discord.js": "^12.1.1"
+  }
+}
