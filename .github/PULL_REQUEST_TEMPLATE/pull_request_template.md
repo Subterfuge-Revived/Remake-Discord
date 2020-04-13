@@ -30,11 +30,6 @@ which has a `403 Unauthorized` response, as well as a `401 Bad Request`.
 
 <!-- Describe the tests that you ran to verify your changes -->
 
-- [ ] I have created automated tests for any new features
-- [ ] All automated tests pass
-- [ ] I have performed manual tests
-
-
 # Checklist:
 
 <!-- Please make sure the following have been performed. -->
