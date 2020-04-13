@@ -12,7 +12,7 @@ A bot coded in Node JS for Discord as part of the Subterfuge Remake project.
    - Run `npm install` to install all required packages.  
 4. Configuring the tokens.json file.  
    - Find your discord bot token by going to https://discordapp.com/developers/applications and selecting your bot.  
-   - Rename the file named `tokens.json.example` to `tokens.json` and fill it out as follows, replacing `"YOUR_UNIQUE_BOT_ID"` with the token.  
+   - Rename the file named `tokens.json.example` to `tokens.json` and replace `"YOUR_UNIQUE_BOT_ID"` with the token.  
     ```json
     {
     "token":"YOUR_UNIQUE_BOT_ID"
