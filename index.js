@@ -1,11 +1,12 @@
 //Import required libraries and files
 const { token } = require('./tokens.json');
-const { prefix, mod } = require('./config.json');
+const { prefix, staffRole } = require('./config.json');
 const fs = require('fs');
 const Discord = require('discord.js');
 const client = new Discord.Client(/*{ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] }*/);  // Turned off for now
 //Add prefix to client, so importing the config json file isn't necessary every module.  For future, prefix command will need to differentiate between the original and cached versions. 
 client.prefix = prefix;
+client.staffRole = staffRole;
 client.collectors = new Map();
 
 client.once('ready', () => {

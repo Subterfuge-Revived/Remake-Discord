@@ -1,9 +1,6 @@
 #NPM modules
 node_modules/
 
-#Generated Reaction Role Save File
-reactMessages/*
-!reactMessages/.gitignore
 
 #VS CODE FILES
 .vscode
