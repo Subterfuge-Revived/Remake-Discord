@@ -44,3 +44,14 @@ exports.run = (client, message, args) => {
             message.channel.send("default from switch case, set up with role help embed later.")
     }
 }
+exports.permissions = (client, message, args) => {
+    return message.member.hasPermission(['MANAGE_ROLES']) || message.member.roles.cache.has("LATER")
+}
+exports.help = {
+    name: "role",
+    description: "Give or take a role from a member.",
+    usage: "role give|take <@member> <@&role>"
+}
+exports.args = (client, message, args)=>{
+    return args.length === 3;
+}

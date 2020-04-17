@@ -16,5 +16,17 @@ exports.run = (client, message, args) =>{
     const cache = require('./'+args[0]+".js");
     client.commands.set(args[0], cache);
     message.channel.send("The command "+args[0]+" has been reloaded successfully.");
-  
+    console.log('reloaded command '+args[0])
+}
+
+exports.args = (client,message, args)=>{
+    return args.length === 1;
+}
+exports.help = {
+    name: "reload",
+    description: "Refreshes the cache of the command in case edits have been made.",
+    usage: "reload <command>"
+}
+exports.permissions = (client, message, args)=>{
+    return message.member.hasPermission(['ADMINISTRATOR']);
 }
