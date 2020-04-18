@@ -14,7 +14,6 @@ exports.run = (client, message, args) => {
         client.user.setActivity(`${client.prefix}help`, {type: "LISTENING"});
         message.channel.send("Prefix changed to `"+client.prefix+'`')
     }
-
 }
 exports.permissions = (client, message, args) => {
     //Function to determine if user has rights to use this command.

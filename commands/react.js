@@ -167,66 +167,69 @@ exports.init = (client) => {
                     return;
                 }
                 const channelID = file.split('.')[0].split('-')[0];
-                client.channels.fetch(channelID)
-                    .then((channel) => {
-                        const messageID = file.split('.')[0].split('-')[1];
-                        channel.messages.fetch(messageID)
-                            .then((msg) => {
-                                var reactionPairs = new Map(Object.entries(JSON.parse(data.toString())))
-                                client.collectors.set(msg.id, msg.createReactionCollector((reaction, user) => reactionPairs.has(reaction.emoji.name) && !user.bot, { 'dispose': true }))
-                                client.collectors.get(msg.id).roles = reactionPairs;
-                                client.collectors.get(msg.id).on('collect', (r, u) => {
-                                    msg.channel.send(`assigning ${r.emoji}`)
-                                        .then((msg) => {
-                                            msg.delete({ "timeout": 3000 });
+                this.startCollector(client, file.split('.')[0].split('-')[0], file.split('.')[0].split('-')[1], new Map(Object.entries(JSON.parse(data.toString()))))
 
-                                            msg.guild.roles.fetch(reactionPairs.get(r.emoji.name))
-                                                .then((role) => {
-                                                    member = channel.guild.members.cache.find(member => member.id === u.id)
-                                                    member.roles.add(role);
-                                                })
-                                                .catch((e) => {
-                                                    console.log(e);
-                                                })
-                                        })
-                                        .catch((e) => {
-                                            console.log(e)
-                                        })
-                                })
-                                client.collectors.get(msg.id).on('remove', (r, u) => {
-                                    msg.channel.send(`removing ${r.emoji}.`)
-                                        .then((msg) => {
-                                            msg.delete({ "timeout": 3000 });
-                                            msg.guild.roles.fetch(reactionPairs.get(r.emoji.name))
-                                                .then((role) => {
-                                                    member = msg.guild.members.cache.find(member => member.id === u.id)
-                                                    member.roles.remove(role)
-                                                        .then((member) => {
-                                                            console.log("Success removing role")
-                                                        })
-                                                        .catch((e) => {
-                                                            console.log(e)
-                                                        })
-                                                })
-                                                .catch((e) => {
-                                                    console.log("Role does not exist")
-                                                    console.log(e);
-                                                })
-                                        })
-                                        .catch((e) => {
-                                            console.log(e);
-                                        })
-                                })
-                            })
-                            .catch((e) => {
-                                console.log("Message may not exist anymore")
-                                console.log(e)
-                            })
-                    })
-                    .catch((e) => {
-                        console.log("Channel may not exist");
-                        console.log(e);
-                    })
+
+                // client.channels.fetch(channelID)
+                //     .then((channel) => {
+                //         const messageID = file.split('.')[0].split('-')[1];
+                //         channel.messages.fetch(messageID)
+                //             .then((msg) => {
+                //                 var reactionPairs = new Map(Object.entries(JSON.parse(data.toString())))
+                //                 client.collectors.set(msg.id, msg.createReactionCollector((reaction, user) => reactionPairs.has(reaction.emoji.name) && !user.bot, { 'dispose': true }))
+                //                 client.collectors.get(msg.id).roles = reactionPairs;
+                //                 client.collectors.get(msg.id).on('collect', (r, u) => {
+                //                     msg.channel.send(`assigning ${r.emoji}`)
+                //                         .then((msg) => {
+                //                             msg.delete({ "timeout": 3000 });
+
+                //                             msg.guild.roles.fetch(reactionPairs.get(r.emoji.name))
+                //                                 .then((role) => {
+                //                                     member = channel.guild.members.cache.find(member => member.id === u.id)
+                //                                     member.roles.add(role);
+                //                                 })
+                //                                 .catch((e) => {
+                //                                     console.log(e);
+                //                                 })
+                //                         })
+                //                         .catch((e) => {
+                //                             console.log(e)
+                //                         })
+                //                 })
+                //                 client.collectors.get(msg.id).on('remove', (r, u) => {
+                //                     msg.channel.send(`removing ${r.emoji}.`)
+                //                         .then((msg) => {
+                //                             msg.delete({ "timeout": 3000 });
+                //                             msg.guild.roles.fetch(reactionPairs.get(r.emoji.name))
+                //                                 .then((role) => {
+                //                                     member = msg.guild.members.cache.find(member => member.id === u.id)
+                //                                     member.roles.remove(role)
+                //                                         .then((member) => {
+                //                                             console.log("Success removing role")
+                //                                         })
+                //                                         .catch((e) => {
+                //                                             console.log(e)
+                //                                         })
+                //                                 })
+                //                                 .catch((e) => {
+                //                                     console.log("Role does not exist")
+                //                                     console.log(e);
+                //                                 })
+                //                         })
+                //                         .catch((e) => {
+                //                             console.log(e);
+                //                         })
+                //                 })
+                //             })
+                //             .catch((e) => {
+                //                 console.log("Message may not exist anymore")
+                //                 console.log(e)
+                //             })
+                //     })
+                //     .catch((e) => {
+                //         console.log("Channel may not exist");
+                //         console.log(e);
+                //     })
             })
         })
     })
@@ -239,24 +242,78 @@ exports.stop = (client) => {
         value.stop();
     }
 }
-exports.startCollector = (channel_id_to_react_to, message_id_to_react_to, reaction_map) => {
+exports.startCollector = (client, channel_id_to_react_to, message_id_to_react_to, reaction_map) => {
     //Stop the existing reaction role
-    if (client.collectors.has(msg.id)) client.collectors.get(msg.id).stop();
+    if (client.collectors.has(message_id_to_react_to)) client.collectors.get(message_id_to_react_to).stop();
     client.channels.fetch(channel_id_to_react_to)
         .then((channel) => {
             channel.messages.fetch(message_id_to_react_to)
                 .then((msg) => {
-                    client.collectors.set(msg.id, msg.createReactionCollector((reaction, user) => { reactionPairs.has(reaction.emoji.name) && !user.bot }), { "dispose": true })
+                    client.collectors.set(msg.id, msg.createReactionCollector((reaction, user)=>{
+                        return reaction_map.has(reaction.emoji.name) && !user.bot
+                    }, { 'dispose': true }))
                     client.collectors.get(msg.id).roles = reaction_map;
                     client.collectors.get(msg.id).on('collect', (r, u) => {
-
+                        this.role(channel, u, reaction_map.get(r.emoji.name), true)
                     })
-                    client.collectors.get(msg.id).on('dispose', (r, u) => {
-
+                    client.collectors.get(msg.id).on('remove', (r, u) => {
+                        this.role(channel, u, reaction_map.get(r.emoji.name), false)
                     })
                 })
         })
 }
+exports.role = (channel, user, roleID, give) => {
+    channel.guild.roles.fetch(roleID)
+        .then((role) => {
+            channel.guild.members.fetch(user.id)
+                .then((member) => {
+                    if (give) {
+                        member.roles.add(role)
+                            .then(() => {
+                                channel.send("Assigned role " + role.toString() + ".")
+                                    .then((msg) => {
+                                        msg.delete({ "timeout": 1000 })
+                                    })
+                            })
+                            .catch((e) => {
+                                //Failed to assign role
+                                channel.send("Something went wrong")
+                                    .then((msg) => {
+                                        msg.delete({ "timeout": 1000 })
+                                    })
+                            })
+                    }
+                    else {
+                        member.roles.remove(role)
+                            .then(() => {
+                                channel.send("Removed role " + role.toString() + ".")
+                                    .then((msg) => {
+                                        msg.delete({ "timeout": 1000 })
+                                    })
+                            })
+                            .catch((e) => {
+                                //Failed to assign role
+                                channel.send("Something went wrong")
+                                    .then((msg) => {
+                                        msg.delete({ "timeout": 1000 })
+                                    })
+                            })
+                    }
+                })
+                .catch((e) => {
+                    //No member????? not sure how this could happen.
+                    console.log(e);
+                })
+        })
+        .catch((e) => {
+            console.log(e);
+            channel.send("Could not find specified role")
+                .then((msg) => {
+                    msg.delete({ "timeout": 1000 })
+                })
+        })
+}
+
 exports.help = {
     name: "react",
     description: "A reaction role enabler",
@@ -267,10 +324,10 @@ exports.args = (client, message, args) => {
         if (args.length < 5) return false;
         if (args.length % 2 == 0) return false; //Expect pairs of reaction and then role    
     }
-    if (args[0] === "list"){
+    if (args[0] === "list") {
         return true;
     }
-    if(args[0] === "add"){
+    if (args[0] === "add") {
         return true;
     }
 }
