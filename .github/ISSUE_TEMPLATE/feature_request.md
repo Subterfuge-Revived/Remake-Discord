@@ -1,4 +1,10 @@
+---
+name: Feature request
+about: Suggest an idea for this project
+title: ''
+labels: enhancement
 
+---
 ## Enhancement Description
 <!-- Present a description of the problem to be addressed by this feature request. -->
 
