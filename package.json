@@ -2,9 +2,12 @@
   "name": "remake-discord",
   "version": "1.0.0",
   "description": "A Discord Bot to assist in managing the Subterfuge Remake community",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint src/ --ext .js --fix",
+    "bot": "node src/index.js",
+    "debug": "node --nolazy --inspect --inspect-brk=9229 src/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +21,8 @@
   "homepage": "https://github.com/Subterfuge-Revived/Remake-Discord#readme",
   "dependencies": {
     "discord.js": "^12.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.1.0"
   }
 }
