@@ -21,15 +21,6 @@ A bot coded in Node JS for Discord as part of the Subterfuge Remake project.
 5. Test out the bot.
     - Run `npm run bot` and you should see the bot come online.
 
-## Run Scripts
-
-The following scripts are avaliable for this repository:
-
-`npm run lint` - Checks your code for syntax and style. For example, ensures all strings are double quotes, correct spacing, no unused imports, etc.
-`npm run debug` - Runs the bot in a debugger process within visual studio code. Pressing `F5` will start and attach the VS Code debugger so that you can debug your code.
-`npm run bot` - Runs the bot.
-`npm run test` - Not yet implemented.
-
 ## Docker Setup
 1. [Install docker](https://docs.docker.com/get-docker/) for your device
 2. [Install VSCode](https://code.visualstudio.com/)
@@ -39,7 +30,16 @@ The following scripts are avaliable for this repository:
    - Install the recommended extensions.
    - These include: `Docker`, `Eslint`
 
-#### Managing Builds
+## Run Scripts
+
+The following scripts are avaliable for this repository:
+
+`npm run lint` - Checks your code for syntax and style. For example, ensures all strings are double quotes, correct spacing, no unused imports, etc.<br/>
+`npm run debug` - Runs the bot in a debugger process within visual studio code. Pressing `F5` will start and attach the VS Code debugger so that you can debug your code.<br/>
+`npm run bot` - Runs the bot.<br/>
+`npm run test` - Not yet implemented.<br/>
+
+#### Managing Docker Builds
 
 To run the bot:
 - Ensure docker has started
