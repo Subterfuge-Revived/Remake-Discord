@@ -1,11 +1,20 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: bug
+---
+
 <!--- Provide a general summary of the issue in the Title above -->
 
-<!-- Please answer the following questions for yourself before submitting an issue.
- 
-- [ ] I am running the latest version
+
+
+<!-- 
+Please answer the following questions for yourself before submitting an issue.
+
 - [ ] I checked the documentation and found no answer
 - [ ] I checked to make sure that this issue has not already been filed
-- [ ] I'm reporting the issue to the correct repository (for multi-repository projects)
+- [ ] I'm reporting the issue to the correct repository
 -->
 
 ## Expected Behavior
@@ -15,7 +24,6 @@
 <!--- Tell us what happens instead of the expected behavior -->
 
 ## Failure Information
-
 <!--
 Please help provide information about the failure if this is a bug.
 If it is not a bug, please remove the rest of this template.
@@ -33,14 +41,6 @@ This section should include error messages, logs, etc.
 2.
 3.
 4.
-
-## Context (Environment)
-<!--- How has this issue affected you? What are you trying to accomplish? -->
-<!--- Providing context helps us come up with a solution that is most useful in the real world -->
-<!-- Include information about your environment including device & version, app version, etc. -->
-* Device:
-* Operating System:
-* App Version:
 
 
 ## Detailed Description
