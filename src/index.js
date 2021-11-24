@@ -39,32 +39,29 @@ client.once("ready", () => {
 	//Load command files from ./commands/ folder
 
 	console.log("Loading commands");
-	client.commands = new Map();
+	client.commands = new Array();
 	fs.readdir("./src/commands/",(err, files)=>{
 		if(err) return console.log(err);
 		files.forEach(file => {
 			if(!file.endsWith(".js")) return;
 			console.log("requiring "+file);
 			const command = require("./commands/"+file);
-			const name = file.split(".")[0];
-			//Stuff into a map ***Debug point***
-            
-			client.commands.set(name, command);
+			// Add to array to be used in body of Slash commands
+			client.commands.push(command);
 		});
 		console.log("Commands loaded");
 		// Start placing commands into application
 		(async () => {
 			try {
-				console.log(Array.from(client.commands.values()));
 				console.log("Attempting to refresh application (/) commands");
 				await rest.put(Routes.applicationCommands(client_id), 
-					{body: Array.from(client.commands.values())});
+					{body: client.commands});
 				console.log("Success! Reloaded application (/) commands");
 				// For testing purposes so it doesn't take the usual hour to refresh commands
 				if (test_guild_id) {
 					try {
 						await rest.put(Routes.applicationGuildCommands(client_id, test_guild_id),
-							{body: Array.from(client.commands.values())});
+							{body: client.commands});
 						console.log("Successfully reloaded commands in test server");
 					} catch (err) {
 						console.error(err);
