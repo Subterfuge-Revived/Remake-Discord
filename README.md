@@ -3,7 +3,7 @@ A bot coded in Node JS for Discord as part of the Subterfuge Remake project.
 
 ## Manual Setup
 1. Install Node JS and NPM
-   - Go to https://nodejs.org/ and download and isntall 12.16.x for your platform.  
+   - Go to https://nodejs.org/ and download and install v16.6.2 for your platform.  
    - Verify the install by running `node -v` and `npm -v`.  
 2. Clone the Remake-Discord Repository
    - Enter `git clone https://github.com/Subterfuge-Revived/Remake-Discord.git`
