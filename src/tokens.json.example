@@ -1,3 +1,7 @@
 {
-    "token":"YOUR_UNIQUE_BOT_ID"
+    "token":"YOUR_UNIQUE_BOT_TOKEN",
+	"client_id": "YOUR_DISCORD_BOT_ID" // Add comma if using test_guild_id
+
+	// This should only be used when testing
+	// "test_guild_id: "YOUR_TEST_SERVER_ID"
 }

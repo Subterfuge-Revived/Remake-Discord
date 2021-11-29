@@ -1,9 +1,13 @@
 //Import required libraries and files
-const { token } = require("./tokens.json");
+const { token, client_id, test_guild_id } = require("./tokens.json");
 const {prefix, mod} = require("./config.json");
 const fs = require("fs");
-const Discord = require("discord.js");
-const client = new Discord.Client();
+const { Client, Intents } = require("discord.js");
+const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord-api-types/v9");
+
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const rest = new REST({ version: "9" }).setToken(token);
 //Add prefix to client, so importing the config json file isn't necessary every time.  For future, prefix command will need to differentiate between the original and cached versions. 
 client.prefix = prefix;
 
@@ -35,19 +39,39 @@ client.once("ready", () => {
 	//Load command files from ./commands/ folder
 
 	console.log("Loading commands");
-	client.commands = new Map();
+	client.commands = new Array();
 	fs.readdir("./src/commands/",(err, files)=>{
 		if(err) return console.log(err);
 		files.forEach(file => {
 			if(!file.endsWith(".js")) return;
 			console.log("requiring "+file);
 			const command = require("./commands/"+file);
-			const name = file.split(".")[0];
-			//Stuff into a map ***Debug point***
-            
-			client.commands.set(name, command);
+			// Add to array to be used in body of Slash commands
+			client.commands.push(command);
 		});
 		console.log("Commands loaded");
+		// Start placing commands into application
+		(async () => {
+			try {
+				console.log("Attempting to refresh application (/) commands");
+				await rest.put(Routes.applicationCommands(client_id), 
+					{body: client.commands});
+				console.log("Success! Reloaded application (/) commands");
+				// For testing purposes so it doesn't take the usual hour to refresh commands
+				if (test_guild_id) {
+					try {
+						await rest.put(Routes.applicationGuildCommands(client_id, test_guild_id),
+							{body: client.commands});
+						console.log("Successfully reloaded commands in test server");
+					} catch (err) {
+						console.error(err);
+					}
+
+				}
+			} catch (err) {
+				console.error(err);
+			}
+		})();
 	});
 });
 

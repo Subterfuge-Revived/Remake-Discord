@@ -1,3 +1,9 @@
-exports.run = (client, message, args) => { //Override the default args with the client arg from earlier.
-	message.channel.send("pong!").catch(console.error);
+module.exports = {
+	name: "ping",
+	description: "Replies with pong",
+	execute(client, interaction) {
+		// used to get latency from client to bot
+		var now = Date.now();
+		interaction.editReply(`Pong! ${now - interaction.createdAt} ms`);
+	}
 };

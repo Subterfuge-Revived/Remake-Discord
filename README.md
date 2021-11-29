@@ -3,7 +3,7 @@ A bot coded in Node JS for Discord as part of the Subterfuge Remake project.
 
 ## Manual Setup
 1. Install Node JS and NPM
-   - Go to https://nodejs.org/ and download and isntall 12.16.x for your platform.  
+   - Go to https://nodejs.org/ and download and install v16.6.2 for your platform.  
    - Verify the install by running `node -v` and `npm -v`.  
 2. Clone the Remake-Discord Repository
    - Enter `git clone https://github.com/Subterfuge-Revived/Remake-Discord.git`
@@ -12,12 +12,11 @@ A bot coded in Node JS for Discord as part of the Subterfuge Remake project.
    - Run `npm install` to install all required packages.  
 4. Configuring the tokens.json file.  
    - Find your discord bot token by going to https://discordapp.com/developers/applications and selecting your bot.  
-   - Rename `tokens.json.example` to `tokens.json` and fill it out as follows, replacing `"YOUR_UNIQUE_BOT_ID"` with the token.  
-    `
-    {
-    "token":"YOUR_UNIQUE_BOT_ID"
-    }
-    `
+   - Rename `tokens.json.example` to `tokens.json` and fill it out as follows, 
+	 	- Replace `"YOUR_UNIQUE_BOT_ID"` with the discord token.
+   		- Replace `"YOUR_DISCORD_BOT_ID` with the bot's ID (Can be done with right clicking the bot in Discord and copying ID)
+		- OPTIONAL: You can replace `YOUR_TEST_SERVER_ID` with your server ID to get faster command refreshes
+
 5. Test out the bot.
     - Run `npm run bot` and you should see the bot come online.
 
